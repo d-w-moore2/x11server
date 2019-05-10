@@ -1,0 +1,57 @@
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "636f16453692a87745117ef883688504996e3633c9a5badde266a61ab3ff2c04",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "5900/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "5500"
+                    }
+                ]
+            },
+            "SandboxKey": "/var/run/docker/netns/636f16453692",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "f1ec5d0cec3f598e985979621f680489ce4e43406cf8c9f5ab0f7932a908ea20",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:02",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "09993d98792af4ae1e0930f051abd368fd4d33bac5cb9b69e6420f2b2773fbc5",
+                    "EndpointID": "f1ec5d0cec3f598e985979621f680489ce4e43406cf8c9f5ab0f7932a908ea20",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:02",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+16:03PM daniel@daniel-ThinkPad-W540:~ $ docker ps 
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+0f59dc3d5c2e        x11server           "/entrypoint.sh"    15 minutes ago      Up 15 minutes       0.0.0.0:5500->5900/tcp   display
+16:03PM daniel@daniel-ThinkPad-W540:~ $ docker^C
+ERROR(130) 16:03PM daniel@daniel-ThinkPad-W540:~ $ vncviewer 172.17.0.2:5500
+16:04PM daniel@daniel-ThinkPad-W540:~ $ 
+
+
+THESE WORKED
+
+docker run -d --name display -e VNC_PASSWORD=newPW -e XFB_SCREEN=1280x800x24 -e XFB_SCREEN_DPI=150 -p 5500:5900 x11plus:latest 
+vncviewer 172.17.0.2:5900
